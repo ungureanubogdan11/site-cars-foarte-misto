@@ -320,12 +320,15 @@ h2:not(#kachow) {
 @media (orientation: portrait){
     .imagine-o {
         height: 25vw;
+        width: auto;
     }
     .imagine-p {
         height: 30vw;
+        width: auto;
     }
     .imagine-v {
         width: 50vw;
+        height: auto;
     }
     .meniu > nav {
         display: flex;
