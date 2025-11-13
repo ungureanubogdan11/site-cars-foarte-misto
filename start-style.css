@@ -8,8 +8,8 @@ body {
 }
 
 header {
-    /* position: sticky; */
-    /* top: 0; */
+    position: sticky;
+    top: 0;
     z-index: 100;
     display: grid;
     grid-template-columns: 4fr 1fr;
@@ -173,7 +173,7 @@ h1 {
     border: 2px solid var(--yellow);
     border-radius: 5%;
     transition: 0.2s;
-    overflow: scroll;
+    overflow: hidden;
 }
 
 .title {
