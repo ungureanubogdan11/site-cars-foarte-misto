@@ -504,6 +504,135 @@ body.neon-mode .add-btn {
     font-size: 1.5rem;
 }
 
+/* =========================================
+   STILURI PENTRU JOCUL DRAG RACE
+   ========================================= */
+
+/* Containerul principal al jocului */
+#race-game {
+    text-align: center;
+    margin: 50px 0;
+    padding: 40px;
+    background: #1a1a1a; /* Gri închis aproape negru */
+    color: white;
+    border: 4px solid white;
+    border-radius: 10px; /* Opțional: colțuri rotunjite */
+}
+
+/* Titlul jocului */
+#race-game h1 {
+    font-family: 'bangers', cursive;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    color: white;
+}
+
+/* Containerul pentru Semafor */
+#traffic-light {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 30px auto; /* auto centrează containerul orizontal */
+    background: #333;
+    padding: 20px;
+    width: fit-content; /* Se mulează pe conținut */
+    border-radius: 20px;
+    border: 2px solid #555;
+}
+
+/* Becurile individuale (Stare stinsă) */
+.light {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 4px solid #222;
+    transition: all 0.1s; /* Tranziție rapidă pentru aprindere */
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.5); /* Efect de adâncime */
+}
+
+/* Culorile de bază (stinse) */
+#light-red { background-color: #500; }
+#light-yellow { background-color: #550; }
+#light-green { background-color: #050; }
+
+/* --- CLASE ACTIVE (Adăugate prin JavaScript) --- */
+
+.light.active-red {
+    background-color: #ff0000 !important;
+    box-shadow: 0 0 30px #ff0000, inset 0 0 10px white !important;
+}
+
+.light.active-yellow {
+    background-color: #ffcc00 !important;
+    box-shadow: 0 0 30px #ffcc00, inset 0 0 10px white !important;
+}
+
+.light.active-green {
+    background-color: #39ff14 !important; /* Verde neon */
+    box-shadow: 0 0 50px #39ff14, inset 0 0 10px white !important;
+}
+
+/* --- LOGICA PENTRU TEXT ȘI BUTOANE --- */
+
+/* Container pentru textul de stare (Engine Off / GO) */
+.race-status-container {
+    min-height: 80px; /* Înălțime minimă ca să nu sară pagina */
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+/* Textul efectiv */
+#race-status {
+    font-family: 'work-sans', sans-serif;
+    margin-right: 40px;
+    text-align: center; /* Centrare explicită a textului */
+    width: 100%;
+    word-wrap: break-word; /* Rupe cuvintele lungi dacă e cazul */
+}
+
+/* Container pentru buton */
+.race-btn-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Stil specific butonului de start */
+#start-engine-btn {
+    font-size: 1.5rem;
+    padding: 15px 40px;
+    margin-top: 10px;
+    max-width: 90%; /* Să nu iasă din ecran pe telefoane mici */
+    cursor: pointer;
+}
+
+/* --- RESPONSIVE (TELEFON) --- */
+@media (max-width: 600px) {
+    #race-status {
+        font-size: 1.2rem; /* Text mai mic pe mobil */
+    }
+    
+    .light {
+        width: 50px !important;  /* Becuri mai mici */
+        height: 50px !important;
+    }
+
+    #traffic-light {
+        gap: 10px;
+        padding: 10px;
+    }
+
+    #start-engine-btn {
+        font-size: 1.2rem;
+        padding: 10px 20px;
+    }
+}
+
 @media (orientation: landscape) and (max-width: 70em) {
     .bonus {
         display: none;
@@ -658,6 +787,24 @@ body.neon-mode .add-btn {
     }
     #text {
         transform: translate(-150vw, -11vh) rotate(-10deg);
+    }
+
+    
+
+    #race-status {
+        font-size: 1.2rem; /* Text mai mic pe telefon */
+    }
+    
+    #start-engine-btn {
+        font-size: 1.2rem !important; /* Buton mai mic pe telefon */
+        padding: 10px 20px !important;
+        width: 80%; /* Butonul să nu fie prea lat */
+    }
+    
+    /* Facem semaforul mai mic pe telefon */
+    .light {
+        width: 50px !important;
+        height: 50px !important;
     }
 }
 /* 

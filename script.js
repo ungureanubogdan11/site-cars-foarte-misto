@@ -1,118 +1,113 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // 1. SELECTARE ELEMENTE DOM
+    // ======================================================
+    // 1. FEATURE: GARAJ (My Garage)
+    // ======================================================
     const garageContainer = document.getElementById('garage-container');
-    const addButtons = document.querySelectorAll('.add-btn');
-
-    // Inițializare structură HTML garaj
-    garageContainer.innerHTML = '<h2>My Garage</h2><div class="garage-list" id="garage-list"></div>';
-    const garageList = document.getElementById('garage-list');
-
-    // 2. LOCAL STORAGE: Încărcăm mașinile salvate
-    let myCars = JSON.parse(localStorage.getItem('garageCars')) || [];
     
-    // Desenăm garajul la încărcarea paginii
-    renderGarage();
+    if (garageContainer) {
+        // --- FIX AICI: Selectăm doar butoanele din interiorul cardurilor de caractere ---
+        // Astfel ignorăm butonul "Start Engine" chiar dacă are clasa .add-btn pentru stil
+        const addButtons = document.querySelectorAll('.character .add-btn');
 
-    // 3. EVENT LISTENERS: Butoanele "Add to Garage"
-    addButtons.forEach(button => {
-        button.addEventListener('click', (event) => {
-            // Oprim comportamentul default (să nu ne ducă pe link) și propagarea
-            event.preventDefault();
-            event.stopPropagation();
+        // Inițializare structură HTML garaj
+        garageContainer.innerHTML = '<h2>My Garage</h2><div class="garage-list" id="garage-list"></div>';
+        const garageList = document.getElementById('garage-list');
+
+        // LOCAL STORAGE
+        let myCars = JSON.parse(localStorage.getItem('garageCars')) || [];
+        
+        renderGarage();
+
+        // EVENT LISTENERS GARAJ
+        addButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                addCarToGarage(event.target);
+            });
+        });
+
+        // --- FUNCȚII GARAJ ---
+
+        function addCarToGarage(button) {
+            const characterCard = button.parentElement;
             
-            addCarToGarage(event.target);
-        });
-    });
+            const titleElement = characterCard.querySelector('.title');
+            
+            // Verificare suplimentară
+            if (!titleElement) {
+                // Dacă cumva se mai apasă un buton greșit, nu mai dăm alertă, doar ignorăm
+                console.warn("Butonul apăsat nu este într-un card valid.");
+                return;
+            }
 
-    // --- FUNCȚII GARAJ ---
+            const name = titleElement.innerText;
+            
+            const imgElement = characterCard.querySelector('.poza');
+            if (!imgElement) return; // Siguranță
+            const imgSrc = imgElement.getAttribute('src'); 
 
-    function addCarToGarage(button) {
-        // Găsim cardul părintelui
-        const characterCard = button.parentElement;
-        
-        // 1. Extragem Numele
-        const name = characterCard.querySelector('.title').innerText;
-        
-        // 2. Extragem Imaginea (calea din src)
-        const imgElement = characterCard.querySelector('.poza');
-        const imgSrc = imgElement.getAttribute('src'); 
+            const linkElement = characterCard.querySelector('a');
+            const linkHref = linkElement ? linkElement.getAttribute('href') : '#';
 
-        // 3. [NOU] Extragem Link-ul către pagina personajului
-        // Căutăm tag-ul <a> din interiorul cardului
-        const linkElement = characterCard.querySelector('a');
-        const linkHref = linkElement ? linkElement.getAttribute('href') : '#';
+            const exists = myCars.some(car => car.name === name);
+            if (exists) {
+                alert(name + " is already in your garage!");
+                return;
+            }
 
-        // Verificăm dacă mașina există deja
-        const exists = myCars.some(car => car.name === name);
-        if (exists) {
-            alert(name + " is already in your garage!");
-            return;
+            const newCar = {
+                id: Date.now(), 
+                name: name,
+                img: imgSrc,
+                link: linkHref
+            };
+
+            myCars.push(newCar);
+            localStorage.setItem('garageCars', JSON.stringify(myCars));
+            renderGarage();
         }
 
-        // Creăm obiectul mașină (acum include și link-ul)
-        const newCar = {
-            id: Date.now(), 
-            name: name,
-            img: imgSrc,
-            link: linkHref // Salvăm destinația link-ului
-        };
+        function renderGarage() {
+            garageList.innerHTML = '';
 
-        // Adăugăm în array și salvăm în LocalStorage
-        myCars.push(newCar);
-        localStorage.setItem('garageCars', JSON.stringify(myCars));
-        
-        // Actualizăm afișarea
-        renderGarage();
-    }
+            if (myCars.length === 0) {
+                garageList.innerHTML = '<p>Garage empty. Add some cars!</p>';
+                return;
+            }
 
-    function renderGarage() {
-        garageList.innerHTML = '';
+            myCars.forEach(car => {
+                const carDiv = document.createElement('div');
+                carDiv.classList.add('garage-item');
+                const linkDest = car.link || '#';
 
-        if (myCars.length === 0) {
-            garageList.innerHTML = '<p>Garage empty. Add some cars!</p>';
-            return;
+                carDiv.innerHTML = `
+                    <a href="${linkDest}">
+                        <img src="${car.img}" alt="${car.name}">
+                    </a>
+                    <h4>${car.name}</h4>
+                    <button class="delete-btn" data-id="${car.id}">Remove</button>
+                `;
+
+                garageList.appendChild(carDiv);
+                const deleteBtn = carDiv.querySelector('.delete-btn');
+                deleteBtn.addEventListener('click', deleteCar);
+            });
         }
 
-        myCars.forEach(car => {
-            const carDiv = document.createElement('div');
-            carDiv.classList.add('garage-item');
-
-            // Verificăm dacă există link salvat (pentru compatibilitate), altfel punem '#'
-            const linkDest = car.link || '#';
-
-            // [NOU] Împachetăm imaginea într-un tag <a>
-            carDiv.innerHTML = `
-                <a href="${linkDest}">
-                    <img src="${car.img}" alt="${car.name}">
-                </a>
-                <h4>${car.name}</h4>
-                <button class="delete-btn" data-id="${car.id}">Remove</button>
-            `;
-
-            garageList.appendChild(carDiv);
-
-            // Adăugăm funcționalitate pe butonul de ștergere
-            const deleteBtn = carDiv.querySelector('.delete-btn');
-            deleteBtn.addEventListener('click', deleteCar);
-        });
+        function deleteCar(event) {
+            event.preventDefault();
+            const idToDelete = parseInt(event.target.getAttribute('data-id'));
+            myCars = myCars.filter(car => car.id !== idToDelete);
+            localStorage.setItem('garageCars', JSON.stringify(myCars));
+            renderGarage();
+        }
     }
 
-    function deleteCar(event) {
-        // Prevenim orice comportament nedorit
-        event.preventDefault();
-        
-        const idToDelete = parseInt(event.target.getAttribute('data-id'));
-        
-        // Filtrăm lista pentru a scoate elementul cu ID-ul respectiv
-        myCars = myCars.filter(car => car.id !== idToDelete);
-        
-        // Salvăm noua listă și re-desenăm
-        localStorage.setItem('garageCars', JSON.stringify(myCars));
-        renderGarage();
-    }
-    
-    // --- THEME TOGGLE (Dacă există butonul în HTML) ---
+    // ======================================================
+    // 2. THEME TOGGLE
+    // ======================================================
     const themeBtn = document.getElementById('theme-toggle');
     if (themeBtn) {
         themeBtn.addEventListener('click', () => {
@@ -120,6 +115,105 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    
+    // ======================================================
+    // 3. FEATURE: DRAG RACE REACTION GAME
+    // ======================================================
+    const startBtn = document.getElementById('start-engine-btn');
 
+    if (startBtn) {
+        const statusText = document.getElementById('race-status');
+        const bestTimeDisplay = document.getElementById('best-time');
+        
+        const redLight = document.getElementById('light-red');
+        const yellowLight = document.getElementById('light-yellow');
+        const greenLight = document.getElementById('light-green');
+
+        let startTime = 0;
+        let endTime = 0;
+        let isRaceOn = false;     
+        let isGreenOn = false;    
+        let timeoutIds = [];      
+        let bestTime = null;
+
+        function resetLights() {
+            if(redLight) redLight.classList.remove('active-red');
+            if(yellowLight) yellowLight.classList.remove('active-yellow');
+            if(greenLight) greenLight.classList.remove('active-green');
+        }
+
+        startBtn.addEventListener('click', () => {
+            if (isRaceOn) return; 
+
+            isRaceOn = true;
+            isGreenOn = false;
+            resetLights();
+            statusText.innerText = "Ready...";
+            statusText.style.color = "white";
+            startBtn.disabled = true;
+            startBtn.style.opacity = "0.5";
+
+            // Aprindem roșu
+            if(redLight) redLight.classList.add('active-red');
+
+            let t1 = setTimeout(() => {
+                if(redLight) redLight.classList.remove('active-red');
+                if(yellowLight) yellowLight.classList.add('active-yellow');
+                statusText.innerText = "Set...";
+            }, 1000);
+
+            const randomDelay = Math.floor(Math.random() * 2000) + 1000;
+
+            let t2 = setTimeout(() => {
+                if(yellowLight) yellowLight.classList.remove('active-yellow');
+                if(greenLight) greenLight.classList.add('active-green');
+                
+                startTime = new Date().getTime();
+                
+                isGreenOn = true;
+                statusText.innerText = "GO! GO! GO!";
+                statusText.style.color = "#39ff14";
+            }, 1000 + randomDelay); 
+
+            timeoutIds.push(t1, t2);
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.code === 'Space' && isRaceOn) {
+                event.preventDefault(); 
+                handleRaceFinish();
+            }
+        });
+
+        function handleRaceFinish() {
+            if (!isGreenOn) {
+                statusText.innerText = "FALSE START!";
+                statusText.style.color = "red";
+                resetLights();
+                timeoutIds.forEach(id => clearTimeout(id));
+                endGame();
+                return;
+            }
+
+            endTime = new Date().getTime();
+            const reactionTime = endTime - startTime;
+
+            statusText.innerText = `Reaction Time: ${reactionTime} ms`;
+            statusText.style.color = "white";
+
+            if (bestTime === null || reactionTime < bestTime) {
+                bestTime = reactionTime;
+                bestTimeDisplay.innerText = bestTime;
+                statusText.innerText += " (NEW RECORD!)";
+            }
+            endGame();
+        }
+
+        function endGame() {
+            isRaceOn = false;
+            isGreenOn = false;
+            startBtn.disabled = false;
+            startBtn.style.opacity = "1";
+            timeoutIds = []; 
+        }
+    }
 });
