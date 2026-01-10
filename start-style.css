@@ -611,6 +611,114 @@ body.neon-mode .add-btn {
     cursor: pointer;
 }
 
+/* =========================================
+   FEATURE: MEMBER AREA (AJAX & LOGIN)
+   ========================================= */
+
+#member-area {
+    text-align: center;
+    margin: 20px 0;
+    padding: 30px;
+    border: 2px solid var(--red); /* Folosim variabila ta globală */
+    background: #2b2b2b; /* Un gri deschis */
+    border-radius: 10px;
+}
+
+#member-area h2 {
+    font-family: 'bangers', cursive;
+    color: var(--yellow);
+    margin-bottom: 20px;
+}
+
+/* Stiluri pentru input-urile de login */
+#login-panel input {
+    padding: 8px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: 'work-sans', sans-serif;
+}
+
+#login-error {
+    color: red;
+    display: none; /* Ascuns implicit */
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Panoul Dashboard (ascuns implicit) */
+#dashboard-panel {
+    display: none; 
+}
+
+#dashboard-panel h3 {
+    color: green; /* Sau o variabilă dacă ai */
+}
+
+/* Butonul de Logout */
+#logout-btn {
+    background: #333;
+    color: white;
+    padding: 5px 15px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    font-family: 'work-sans', sans-serif;
+    transition: background 0.2s;
+}
+
+#logout-btn:hover {
+    background: #555;
+}
+
+#member-hr {
+    margin: 20px 0;
+    border: 0;
+    border-top: 1px solid #ccc;
+}
+
+/* Butonul Load Secrets */
+#load-secrets-btn {
+    background-color: var(--yellow);
+    color: var(--red);
+    border: 2px solid var(--red);
+    margin-top: 10px;
+}
+
+/* Containerul pentru secrete (Flexbox) */
+#secrets-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* CLASĂ NOUĂ: Stilul pentru un cartonaș secret (folosită în JS) */
+.secret-card {
+    border: 2px dashed var(--red);
+    padding: 15px;
+    width: 220px;
+    background: #fff;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    border-radius: 5px;
+    text-align: left;
+}
+
+.secret-card h4 {
+    color: var(--red);
+    margin: 0 0 10px 0;
+    font-family: 'bangers', cursive;
+    letter-spacing: 1px;
+}
+
+.secret-card p {
+    font-size: 0.9rem;
+    color: #333;
+    margin: 0;
+}
+
+
 /* --- RESPONSIVE (TELEFON) --- */
 @media (max-width: 600px) {
     #race-status {

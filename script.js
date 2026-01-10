@@ -216,4 +216,102 @@ document.addEventListener('DOMContentLoaded', () => {
             timeoutIds = []; 
         }
     }
+
+    const loginPanel = document.getElementById('login-panel');
+    const dashboardPanel = document.getElementById('dashboard-panel');
+    const loginBtn = document.getElementById('login-btn');
+    const logoutBtn = document.getElementById('logout-btn');
+    const loginError = document.getElementById('login-error');
+    
+    const userInput = document.getElementById('login-user');
+    const passInput = document.getElementById('login-pass');
+    const displayUser = document.getElementById('display-user');
+
+    const loadSecretsBtn = document.getElementById('load-secrets-btn');
+    const secretsContainer = document.getElementById('secrets-container');
+
+    // 1. VERIFICARE SESIUNE (localStorage)
+    const savedUser = localStorage.getItem('activeUser');
+    
+    if (savedUser) {
+        showDashboard(savedUser);
+    } else {
+        showLogin();
+    }
+
+    function showDashboard(username) {
+        if (loginPanel) loginPanel.style.display = 'none';
+        if (dashboardPanel) dashboardPanel.style.display = 'block';
+        if (displayUser) displayUser.innerText = username;
+    }
+
+    function showLogin() {
+        if (loginPanel) loginPanel.style.display = 'block';
+        if (dashboardPanel) dashboardPanel.style.display = 'none';
+        if (userInput) userInput.value = '';
+        if (passInput) passInput.value = '';
+        if (secretsContainer) secretsContainer.innerHTML = '';
+    }
+
+    // 2. LOGIN CU AJAX (Preluare date din users.json)
+    if (loginBtn) {
+        loginBtn.addEventListener('click', () => {
+            const enteredUser = userInput.value;
+            const enteredPass = passInput.value;
+
+            fetch('resources/users.json')
+                .then(response => {
+                    if (!response.ok) throw new Error("Nu s-a putut încărca baza de date.");
+                    return response.json();
+                })
+                .then(users => {
+                    const validUser = users.find(u => u.username === enteredUser && u.password === enteredPass);
+
+                    if (validUser) {
+                        localStorage.setItem('activeUser', validUser.username);
+                        if (loginError) loginError.style.display = 'none';
+                        showDashboard(validUser.username);
+                    } else {
+                        if (loginError) loginError.style.display = 'block';
+                    }
+                })
+                .catch(err => console.error("Eroare AJAX Login:", err));
+        });
+    }
+
+    // 3. LOGOUT
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('activeUser');
+            showLogin();
+        });
+    }
+
+    // 4. PRELUARE DATE SECRETE CU AJAX (Preluare din secrets.json)
+    if (loadSecretsBtn) {
+        loadSecretsBtn.addEventListener('click', () => {
+            fetch('resources/secrets.json')
+                .then(response => {
+                    if (!response.ok) throw new Error("Nu s-au putut încărca secretele.");
+                    return response.json();
+                })
+                .then(data => {
+                    if (secretsContainer) {
+                        secretsContainer.innerHTML = ''; 
+
+                        data.forEach(secret => {
+                            const card = document.createElement('div');
+                            card.classList.add('secret-card'); // Folosește clasa din CSS
+
+                            card.innerHTML = `
+                                <h4>${secret.title}</h4>
+                                <p>${secret.info}</p>
+                            `;
+                            secretsContainer.appendChild(card);
+                        });
+                    }
+                })
+                .catch(err => console.error("Eroare AJAX Secrets:", err));
+        });
+    }
 });

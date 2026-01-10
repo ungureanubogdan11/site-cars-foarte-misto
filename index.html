@@ -35,6 +35,32 @@
     </header>
 
     <main>
+        <section id="member-area">
+    <h2>Piston Cup Insider Access</h2>
+    
+    <div id="login-panel">
+        <p>Login to see classified racing intel.</p>
+        <div class="login-inputs">
+            <input type="text" id="login-user" placeholder="Username (ex: mcqueen)">
+            <input type="password" id="login-pass" placeholder="Password (ex: 95)">
+        </div>
+        <button id="login-btn" class="add-btn">Login</button>
+        <p id="login-error">Invalid credentials!</p>
+    </div>
+
+    <div id="dashboard-panel">
+        <h3>Welcome back, <span id="display-user">Racer</span>!</h3>
+        <button id="logout-btn">Logout</button>
+        
+        <hr id="member-hr">
+        
+        <p>You have clearance to view secret files.</p>
+        <button id="load-secrets-btn" class="add-btn">📂 Load Secret Intel (AJAX)</button>
+        
+        <div id="secrets-container"></div>
+    </div>
+</section>
+
         <section id="movies">
             <h1>The Movies</h1>
             <div class="filme">
