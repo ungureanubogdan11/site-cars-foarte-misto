@@ -283,7 +283,7 @@ h1, h2{
 }
 
 .character {
-    height: 40vh;
+    height: 50vh;
     width: 30vw;
     border: 2px solid var(--yellow);
     border-radius: 5%;
@@ -298,6 +298,133 @@ h1, h2{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.add-btn {
+    font-family: 'bangers', cursive;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    
+    background-color: var(--yellow); 
+    color: var(--red);
+    border: 2px solid var(--red);
+    
+    display: block;
+    margin: 15px auto;
+    padding: 8px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.2s ease-in-out;
+    text-transform: uppercase;
+}
+
+.add-btn:hover {
+    background-color: white; 
+    transform: scale(1.1) rotate(-2deg); 
+    box-shadow: 0 0 10px var(--yellow);
+}
+
+#theme-toggle {
+    font-family: 'bangers', cursive;
+    font-size: x-large; 
+    
+    background-color: var(--red); 
+    color: var(--yellow);
+    border: 2px solid var(--yellow);
+    
+    padding: 5px 15px;
+    margin-left: 2vw; 
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#theme-toggle:hover {
+    filter: brightness(150%);
+    box-shadow: 0 0 15px var(--yellow);
+}
+#garage-container {
+    margin-top: 50px;
+    padding: 30px;
+    background-color: #2a2a2a; 
+    border-top: 5px solid var(--yellow);
+    border-bottom: 5px solid var(--yellow);
+    color: var(--yellow);
+    text-align: center;
+    min-height: 200px;
+}
+
+#garage-container h2 {
+    font-family: 'bangers', cursive;
+    color: var(--yellow);
+    font-size: 3rem;
+    text-shadow: 2px 2px var(--red);
+}
+
+.garage-list {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    padding-top: 20px;
+}
+
+.garage-item {
+    background-color: var(--red);
+    border: 2px solid var(--yellow); 
+    color: var(--yellow);
+    padding: 15px;
+    border-radius: 10px;
+    width: 180px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 5px 5px 0px rgba(0,0,0,0.5);
+}
+
+.garage-item img {
+    width: 100%;
+    height: auto;
+    border-bottom: 2px solid var(--yellow);
+    margin-bottom: 10px;
+}
+
+.garage-item h4 {
+    font-family: 'work-sans', sans-serif;
+    margin: 5px 0;
+    font-size: 1.2rem;
+}
+.delete-btn {
+    font-family: 'bangers', cursive;
+    background-color: #a00; 
+    
+    border: 1px solid white;
+    padding: 5px 15px;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 3px;
+    font-size: 1rem;
+}
+
+.delete-btn:hover {
+    background-color: red;
+    box-shadow: 0 0 5px red;
+}
+body.neon-mode #garage-container {
+    background-color: #050510;
+    border-color: #00ffff;
+}
+
+body.neon-mode .garage-item {
+    background-color: #1a1a40;
+    border-color: #ff00de;
+    box-shadow: 0 0 10px #ff00de;
+}
+
+body.neon-mode .add-btn {
+    background-color: #39ff14; 
+    color: black;
+    border-color: #39ff14;
 }
 
 @media (orientation: landscape) and (max-width: 70em) {

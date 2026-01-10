@@ -4,133 +4,128 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kachow!</title>
-    <base href = "resources/">
-    <link rel="stylesheet" href="../start-style.css">
+    
+    <link rel="stylesheet" href="start-style.css">
+    
+    <script src="script.js" defer></script>
 </head>
 <body>
 
     <header>
-        <div class = "meniu">
+        <div class="meniu">
             <nav>
-                <div class = "dropdown">
-                    <div class = "line"></div>
-                    <div class = "line"></div>
-                    <div class = "line"></div>
-                    <div class = "dropdown-content">
-                        <a class = "link" href = "../movies.html" target = "_self">Movies</a>
-                        <a class = "link" href = "../characters.html" target = "_self">Characters</a>
-                        <a class = "link" href = "../index.html#contact" target = "_self">Contact</a>
+                <div class="dropdown">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="dropdown-content">
+                        <a class="link" href="movies.html" target="_self">Movies</a>
+                        <a class="link" href="characters.html" target="_self">Characters</a>
+                        <a class="link" href="index.html#contact" target="_self">Contact</a>
                     </div>
                 </div>
                 <div>    
-                    <a href = "../index.html" target = "_self"> 
-                        <img id= "logo" src = "cars-logo.png" alt = "Cars logo">
+                    <a href="index.html" target="_self"> 
+                        <img id="logo" src="resources/cars-logo.png" alt="Cars logo">
                     </a>
                 </div>
-                <h2 id = "kachow">Kachow!</h2>
+                <h2 id="kachow">Kachow!</h2>
             </nav>
         </div>
     </header>
 
     <main>
-
-        
-        <section id = "movies">
+        <section id="movies">
             <h1>The Movies</h1>
-            
-            <div class = "filme">
-                
-                <div class = "film">
-                    <a href = "../movies.html#first">
-                    <img class = "poster" src = "cars-poster.png" alt = "Cars (2006) Poster">
-                    <div>
-                        <p class = "title">Cars (2006)</p>
-                        <p class = "bonus">While on his way to a major race, rookie racer Lightning McQueen gets lost and ends up in the small town of Radiator Springs, where he meets quirky characters and learns that winning isn't the most important thing.</p>
-                    </div>
-                    </a>
-                </div>
-                <div class = "film">
-                    <a href = "../movies.html#second">
-                    <img class = "poster" src = "cars2-poster.png" alt = "Cars 2 (2011) Poster">
-                    <div>
-                        <p class = "title">Cars 2 (2011)<p>
-                        <p class = "bonus">Lightning McQueen and Mater go overseas for the World Grand Prix, but their plans are disrupted when Mater accidentally gets involved in international espionage. </p>
-                        
+            <div class="filme">
+                <div class="film">
+                    <a href="movies.html#first">
+                        <img class="poster" src="resources/cars-poster.png" alt="Cars (2006) Poster">
+                        <div>
+                            <p class="title">Cars (2006)</p>
+                            <p class="bonus">While on his way to a major race...</p>
                         </div>
                     </a>
                 </div>
-            
-                <div class = "film">
-                    <a href = "../movies.html#third">
-                    <img class = "poster" src = "cars3-poster.png" alt = "Cars 3 (2017) Poster">
-                    <div>
-                        <p class = "title">Cars 3 (2017)</p>
-                        <p class = "bonus">Blindsided by a new generation of blazing-fast racers, the legendary Lightning McQueen is suddenly pushed out of the sport he loves. To get back in the game, he'll need help from an eager young race technician, Cruz Ramirez.
-                        </p>
-                    </div>
+                <div class="film">
+                    <a href="movies.html#second">
+                        <img class="poster" src="resources/cars2-poster.png" alt="Cars 2 (2011) Poster">
+                        <div>
+                            <p class="title">Cars 2 (2011)</p>
+                            <p class="bonus">Lightning McQueen and Mater go overseas...</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="film">
+                    <a href="movies.html#third">
+                        <img class="poster" src="resources/cars3-poster.png" alt="Cars 3 (2017) Poster">
+                        <div>
+                            <p class="title">Cars 3 (2017)</p>
+                            <p class="bonus">Blindsided by a new generation...</p>
+                        </div>
                     </a>
                 </div>
             </div>
         </section>
 
-        <section id = "profiles">
-            <h1 id = "character-title">Meet the Residents of Radiator Springs</h1>
+        <section id="profiles">
+            <h1 id="character-title">Meet the Residents of Radiator Springs</h1>
 
-            <div class = "personaje">
-
-            
-                <div class = "character" id = "lightning">
-                    <a href = "../characters.html#mcqueen">
-                        <img class = "poza" src="mcqueen.png" alt="Lightning McQueen">
-                        <p class = "title">Lightning McQueen</p>
-                        <p class = "bonus">#95. A Piston Cup champion who learned to slow down and appreciate the friends he made along the way.</p>
+            <div class="personaje">
+                <div class="character" id="lightning">
+                    <a href="characters.html#mcqueen">
+                        <img class="poza" src="resources/mcqueen.png" alt="Lightning McQueen">
+                        <p class="title">Lightning McQueen</p>
+                        <p class="bonus">#95. A Piston Cup champion...</p>
                     </a>
+                    <button class="add-btn">Add to Garage</button>
                 </div>
                 
-                <div class = "character" id = "mater">
-                    <a href = "../characters.html#mater">
-                        <img class = "poza" src="mater.png" alt="Mater">
-                        <p class = "title">Mater</p>
-                        <p class = "bonus">The lovable, rusty tow-truck and Lightning's best friend. He's the heart of Radiator Springs.</p>
+                <div class="character" id="mater">
+                    <a href="characters.html#mater">
+                        <img class="poza" src="resources/mater.png" alt="Mater">
+                        <p class="title">Mater</p>
+                        <p class="bonus">The lovable, rusty tow-truck...</p>
                     </a>
+                    <button class="add-btn">Add to Garage</button>
                 </div>
 
-                <div class = "character" id = "doc">
-                    <a href = "../characters.html#doc">
-                        <img class = "poza" src="doc.png" alt="Doc Hudson">
-                        <p class = "title">Doc Hudson</p>
-                        <p class = "bonus">The "Fabulous Hudson Hornet." A legendary racer turned town judge and doctor, who became Lightning's mentor.</p>
+                <div class="character" id="doc">
+                    <a href="characters.html#doc">
+                        <img class="poza" src="resources/doc.png" alt="Doc Hudson">
+                        <p class="title">Doc Hudson</p>
+                        <p class="bonus">The "Fabulous Hudson Hornet."...</p>
                     </a>
+                    <button class="add-btn">Add to Garage</button>
                 </div>
-                <div class = "character" id = "sally">
 
-                    <a href = "../characters.html#sally">
-                        <img class = "poza" src="sally.png" alt="Sally Carrera">
-                        <p class = "title">Sally Carrera</p>
-                        <p class = "bonus">A smart and charming Porsche who left the fast lane to become the town's attorney and proprietor of the Cozy Cone Motel.</p>
+                <div class="character" id="sally">
+                    <a href="characters.html#sally">
+                        <img class="poza" src="resources/sally.png" alt="Sally Carrera">
+                        <p class="title">Sally Carrera</p>
+                        <p class="bonus">A smart and charming Porsche...</p>
                     </a>
+                    <button class="add-btn">Add to Garage</button>
                 </div>
 
             </div>
         </section>
-        <div class = "animatie">
-            <img class = "pa" id = "img1" src = "mcqueen1.png" alt = "Salut!">
-            <img class = "pa" id = "img2" src = "kachow.png" alt = "Ce faci?">
-            <img class = "pa" id = "lumina" src = "light.png" alt = "Bine. Tu?">
-            <img class = "pa" id = "text" src = "text.png" alt = "Bine">
+
+        <div class="animatie">
+            <img class="pa" id="img1" src="resources/mcqueen1.png" alt="Salut!">
+            <img class="pa" id="img2" src="resources/kachow.png" alt="Ce faci?">
+            <img class="pa" id="lumina" src="resources/light.png" alt="Bine. Tu?">
+            <img class="pa" id="text" src="resources/text.png" alt="Bine">
         </div>
 
-
+        <div id="garage-container"></div>
     </main>
-
     
     <footer>
-        <div id = "contact">
+        <div id="contact">
             <p>Want to talk more about the Cars Universe?</p>
             <p>Give me a message!</p>
         </div>
     </footer>
-
 </body>
 </html>
-
