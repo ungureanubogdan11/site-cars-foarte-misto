@@ -264,6 +264,24 @@ h2:not(#kachow) {
     filter: brightness(150%);
 }
 
+h1::before, h1::after {
+    content: "🏁"; 
+    opacity: 0.8;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+h1::before {
+    margin-right: 10px;
+}
+
+h1::after {
+    margin-left: 10px;
+}
+
+h1:hover::before, h1:hover::after {
+    transform: rotate(20deg); 
+}
 
 @media (orientation: landscape) and (max-width: 70em) {
     .imagine-o {

@@ -1,25 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // ======================================================
-    // 1. FEATURE: GARAJ (My Garage)
-    // ======================================================
     const garageContainer = document.getElementById('garage-container');
     
     if (garageContainer) {
-        // --- FIX AICI: Selectăm doar butoanele din interiorul cardurilor de caractere ---
-        // Astfel ignorăm butonul "Start Engine" chiar dacă are clasa .add-btn pentru stil
         const addButtons = document.querySelectorAll('.character .add-btn');
 
-        // Inițializare structură HTML garaj
         garageContainer.innerHTML = '<h2>My Garage</h2><div class="garage-list" id="garage-list"></div>';
         const garageList = document.getElementById('garage-list');
 
-        // LOCAL STORAGE
         let myCars = JSON.parse(localStorage.getItem('garageCars')) || [];
         
         renderGarage();
 
-        // EVENT LISTENERS GARAJ
         addButtons.forEach(button => {
             button.addEventListener('click', (event) => {
                 event.preventDefault();
@@ -28,16 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // --- FUNCȚII GARAJ ---
-
         function addCarToGarage(button) {
             const characterCard = button.parentElement;
             
             const titleElement = characterCard.querySelector('.title');
             
-            // Verificare suplimentară
             if (!titleElement) {
-                // Dacă cumva se mai apasă un buton greșit, nu mai dăm alertă, doar ignorăm
                 console.warn("Butonul apăsat nu este într-un card valid.");
                 return;
             }
@@ -45,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = titleElement.innerText;
             
             const imgElement = characterCard.querySelector('.poza');
-            if (!imgElement) return; // Siguranță
+            if (!imgElement) return; 
             const imgSrc = imgElement.getAttribute('src'); 
 
             const linkElement = characterCard.querySelector('a');
@@ -55,6 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (exists) {
                 alert(name + " is already in your garage!");
                 return;
+            }
+            else {
+                alert(name + " a fost adaugat in garaj!");
             }
 
             const newCar = {
@@ -105,19 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ======================================================
-    // 2. THEME TOGGLE
-    // ======================================================
-    const themeBtn = document.getElementById('theme-toggle');
-    if (themeBtn) {
-        themeBtn.addEventListener('click', () => {
-            document.body.classList.toggle('neon-mode');
-        });
-    }
-
-    // ======================================================
-    // 3. FEATURE: DRAG RACE REACTION GAME
-    // ======================================================
     const startBtn = document.getElementById('start-engine-btn');
 
     if (startBtn) {
@@ -152,7 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
             startBtn.disabled = true;
             startBtn.style.opacity = "0.5";
 
-            // Aprindem roșu
             if(redLight) redLight.classList.add('active-red');
 
             let t1 = setTimeout(() => {
@@ -230,7 +207,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadSecretsBtn = document.getElementById('load-secrets-btn');
     const secretsContainer = document.getElementById('secrets-container');
 
-    // 1. VERIFICARE SESIUNE (localStorage)
     const savedUser = localStorage.getItem('activeUser');
     
     if (savedUser) {
@@ -253,7 +229,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (secretsContainer) secretsContainer.innerHTML = '';
     }
 
-    // 2. LOGIN CU AJAX (Preluare date din users.json)
     if (loginBtn) {
         loginBtn.addEventListener('click', () => {
             const enteredUser = userInput.value;
@@ -261,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             fetch('resources/users.json')
                 .then(response => {
-                    if (!response.ok) throw new Error("Nu s-a putut încărca baza de date.");
+                    if (!response.ok) throw new Error("err");
                     return response.json();
                 })
                 .then(users => {
@@ -275,11 +250,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (loginError) loginError.style.display = 'block';
                     }
                 })
-                .catch(err => console.error("Eroare AJAX Login:", err));
+                .catch(err => console.error("Eroare", err));
         });
     }
 
-    // 3. LOGOUT
     if (logoutBtn) {
         logoutBtn.addEventListener('click', () => {
             localStorage.removeItem('activeUser');
@@ -287,12 +261,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 4. PRELUARE DATE SECRETE CU AJAX (Preluare din secrets.json)
     if (loadSecretsBtn) {
         loadSecretsBtn.addEventListener('click', () => {
             fetch('resources/secrets.json')
                 .then(response => {
-                    if (!response.ok) throw new Error("Nu s-au putut încărca secretele.");
+                    if (!response.ok) throw new Error("err");
                     return response.json();
                 })
                 .then(data => {
@@ -301,7 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         data.forEach(secret => {
                             const card = document.createElement('div');
-                            card.classList.add('secret-card'); // Folosește clasa din CSS
+                            card.classList.add('secret-card');
 
                             card.innerHTML = `
                                 <h4>${secret.title}</h4>
@@ -311,7 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
                     }
                 })
-                .catch(err => console.error("Eroare AJAX Secrets:", err));
+                .catch(err => console.error("Eroare", err));
         });
     }
 });
